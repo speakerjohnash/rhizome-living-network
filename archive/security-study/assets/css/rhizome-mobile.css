@@ -1,0 +1,347 @@
+/* Rhizome: adaptive mobile presentation layer.
+ * Existing CSS and desktop SVG renderers remain unchanged.
+ * All chart layout overrides below are limited to <=600px.
+ */
+
+/* The full-size visualization dialog is injected only on narrow screens.
+   Keep its styles isolated so no desktop component is affected. */
+.rh-mobile-dialog:not([open]) { display: none; }
+.rh-mobile-dialog[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+  border: 0;
+  border-radius: 0;
+  background: #0b1123;
+  color: #eff5ff;
+  box-shadow: 0 0 0 300vmax rgb(3 5 15 / .8);
+  z-index: 1000;
+}
+.rh-mobile-dialog::backdrop { background: rgb(3 5 15 / .88); }
+.rh-mobile-dialog-header {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgb(175 199 236 / .18);
+}
+.rh-mobile-dialog-title {
+  min-width: 0;
+  margin: 0;
+  color: #f2f6fc;
+  font-size: clamp(16px, 4.6vw, 20px);
+  line-height: 1.25;
+  letter-spacing: -.03em;
+}
+.rh-mobile-close,
+.rh-mobile-zoom-button {
+  cursor: pointer;
+  border: 1px solid rgb(185 208 243 / .3);
+  border-radius: 9px;
+  background: #1a2541;
+  color: #f0f5ff;
+  font: 750 13px/1.15 system-ui, sans-serif;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 10px 13px;
+  touch-action: manipulation;
+}
+.rh-mobile-close:focus-visible,
+.rh-mobile-zoom-button:focus-visible,
+.rh-mobile-full:focus-visible,
+.rh-mobile-node:focus-visible {
+  outline: 3px solid #ffbd86;
+  outline-offset: 3px;
+}
+.rh-mobile-zoom {
+  flex: none;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 14px 4px;
+}
+.rh-mobile-zoom-button { min-width: 59px; font-size: 17px; }
+.rh-mobile-dialog-hint {
+  flex: none;
+  margin: 0;
+  padding: 7px 12px 11px;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.4;
+  color: #bac9df;
+}
+.rh-mobile-dialog-viewport {
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-x pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: #6a789b #131c34;
+  padding: 10px;
+}
+.rh-mobile-dialog-viewport > svg {
+  display: block !important;
+  max-width: none !important;
+  max-height: none !important;
+  flex: none;
+}
+/* Original chart IDs are hidden in mobile cards but explicitly visible here. */
+#rhMobileDialog #federationChart,
+#rhMobileDialog #routingChart,
+#rhMobileDialog #computeChart,
+#rhMobileDialog #resilienceChart,
+#rhMobileDialog #diagnosticsChart {
+  display: block !important;
+}
+
+@media (min-width: 601px) {
+  .rh-mobile-toolbar,
+  .rh-mobile-graphic,
+  .rh-mobile-feedback,
+  .rh-mobile-scroll-hint { display: none !important; }
+}
+
+@media (max-width: 600px) {
+  /* Preserve the section/card boundaries; scale only diagram content. */
+  .rh-mobile-toolbar {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    padding: 11px 15px;
+    border-bottom: 1px solid rgb(160 186 228 / .17);
+    background: rgb(12 18 37 / .97);
+  }
+  .rh-mobile-kicker {
+    font-size: 10px;
+    font-weight: 850;
+    letter-spacing: .11em;
+    color: #a7bbd4;
+  }
+  .rh-mobile-full {
+    flex: none;
+    min-width: 106px;
+    min-height: 44px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    border: 1px solid rgb(187 160 240 / .46);
+    background: rgb(95 62 140 / .26);
+    color: #efd9ff;
+    font: 760 12px/1.2 system-ui, sans-serif;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  .rh-mobile-full:active {
+    background: rgb(107 78 169 / .5);
+  }
+  .rh-mobile-graphic {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 9px 8px 2px;
+    background:
+      radial-gradient(circle at 42% 44%, rgb(80 68 142 / .10), transparent 65%),
+      linear-gradient(rgb(134 151 207 / .035) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(134 151 207 / .035) 1px, transparent 1px);
+    background-size: auto, 32px 32px, 32px 32px;
+  }
+  /* Strong enough to beat the original 540px min-width / !important rules. */
+  .rh-mobile-graphic svg.rh-mobile-svg {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    margin: 0 auto;
+    overflow: visible;
+  }
+  .rh-mobile-svg .rh-mobile-node {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  .rh-mobile-svg .rh-mobile-node.rh-mobile-selected > circle:nth-of-type(2) {
+    stroke-width: 4;
+  }
+  .rh-mobile-feedback {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 11px 15px 13px;
+    border-top: 1px solid rgb(160 186 228 / .14);
+    color: #c5d5e8;
+    font-size: 12px;
+    line-height: 1.55;
+    background: rgb(13 19 39 / .8);
+  }
+  .rh-mobile-scroll-hint {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: fit-content;
+    max-width: min(100%, 330px);
+    margin: 0;
+    padding: 9px 12px 3px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #c5d4e7;
+  }
+
+  /* Five adaptive visualizations use self-contained vertical layouts. */
+  .network-viewport,
+  .route-visual,
+  .compute-canvas,
+  .timeline-wrap,
+  .diag-plot {
+    min-width: 0;
+    overflow-x: hidden !important;
+  }
+  #federationChart,
+  #routingChart,
+  #computeChart,
+  #resilienceChart,
+  #diagnosticsChart {
+    display: none !important;
+  }
+  .network-viewport { overflow-y: visible; }
+  .network-viewport .graph-overlay-bottom {
+    position: static !important;
+    width: auto !important;
+    max-width: 100%;
+    inset: auto !important;
+    gap: 9px 12px;
+    padding: 10px 13px 16px;
+    font-size: 10px;
+  }
+  .route-visual { padding: 0 !important; }
+  .route-visual .rh-mobile-graphic { padding: 10px 4px; }
+  .route-controls { padding: 10px 14px 16px; }
+  .compute-canvas {
+    display: block !important;
+    padding: 0 !important;
+  }
+  .compute-canvas .rh-mobile-graphic { padding: 12px 6px; }
+  .timeline-wrap, .diag-plot { padding: 0 !important; }
+  .timeline-wrap .rh-mobile-graphic,
+  .diag-plot .rh-mobile-graphic { padding: 6px 10px 15px; }
+
+  /* Chronological event cards are easier to read than squashed timelines. */
+  .rh-mobile-steps {
+    display: grid;
+    gap: 0;
+    list-style: none;
+    padding: 6px 3px 4px;
+    margin: 0;
+  }
+  .rh-mobile-steps li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 49px minmax(0, 1fr);
+    align-items: center;
+    gap: 4px 13px;
+    min-height: 67px;
+    margin: 0 0 0 16px;
+    padding: 10px 10px 10px 24px;
+    border-left: 2px solid rgb(151 181 226 / .32);
+    border-bottom: 1px solid rgb(169 185 221 / .09);
+  }
+  .rh-mobile-steps li::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 7px);
+    left: -8px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #b8a4ed;
+    border-radius: 50%;
+    background: #111a32;
+  }
+  .rh-mobile-steps li:last-child { border-left-color: transparent; }
+  .rh-step-time,
+  .rh-step-symbol {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    color: #dfc8ff;
+    font: 850 12px/1.25 ui-monospace, SFMono-Regular, monospace;
+  }
+  .rh-step-node {
+    grid-column: 2;
+    grid-row: 1;
+    color: #8faad0;
+    font: 800 9px/1.3 system-ui, sans-serif;
+    letter-spacing: .11em;
+  }
+  .rh-step-action {
+    grid-column: 2;
+    grid-row: 2;
+    overflow-wrap: anywhere;
+    color: #e8f1ff;
+    font: 680 14px/1.4 system-ui, sans-serif;
+  }
+  .rh-mobile-event-alert::before {
+    border-color: #ff8b9b !important;
+    background: #6d2a44 !important;
+  }
+  .rh-mobile-event-alert .rh-step-time,
+  .rh-mobile-event-alert .rh-step-symbol,
+  .rh-mobile-event-alert .rh-step-status { color: #ff9dac; }
+  .rh-mobile-diagnostics .rh-mobile-steps li {
+    grid-template-columns: 41px minmax(0, 1fr);
+    min-height: 59px;
+  }
+  .rh-mobile-diagnostics .rh-step-symbol { font-size: 18px; }
+  .rh-mobile-diagnostics .rh-step-action { grid-row: 1; }
+  .rh-mobile-diagnostics .rh-step-status {
+    grid-column: 2;
+    grid-row: 2;
+    color: #9ab0cb;
+    font: 760 9px/1.3 system-ui, sans-serif;
+    letter-spacing: .08em;
+  }
+  .rh-mobile-event-subsequent { opacity: .63; }
+  .rh-mobile-empty {
+    padding: 22px 10px;
+    color: #e9c0db;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  /* The four dense exploratory diagrams retain their interactive originals. */
+  .time-plot,
+  .stream-wrap,
+  .relationship-plot,
+  .hardware-chart {
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #6377a7 #11192d;
+  }
+  .time-plot .rh-mobile-toolbar,
+  .stream-wrap .rh-mobile-toolbar,
+  .relationship-plot .rh-mobile-toolbar,
+  .hardware-chart .rh-mobile-toolbar { border-radius: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rh-mobile-dialog,
+  .rh-mobile-full,
+  .rh-mobile-node { transition: none !important; animation: none !important; }
+}
