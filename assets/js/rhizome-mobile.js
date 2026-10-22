@@ -14,11 +14,8 @@
     muted: '#a7bbd4', white: '#f0f5ff', dark: '#121b32'
   });
   const charts = [
-    { id: 'federationChart', title: 'Community federation', mode: 'adaptive', render: renderFederation },
     { id: 'routingChart', title: 'Protected network routes', mode: 'adaptive', render: renderRoute },
     { id: 'computeChart', title: 'Private computation', mode: 'adaptive', render: renderComputation },
-    { id: 'perspectiveChart', title: 'Historical perspectives', mode: 'explore' },
-    { id: 'classificationChart', title: 'Changing classification', mode: 'explore' },
     { id: 'relationsChart', title: 'Relationship field', mode: 'explore' },
     { id: 'resilienceChart', title: 'Distributed failure timeline', mode: 'adaptive', render: renderFailure },
     { id: 'diagnosticsChart', title: 'Failure attribution pipeline', mode: 'adaptive', render: renderDiagnostics },
@@ -159,7 +156,7 @@
     } else if (state === 'approved') {
       drawPath(svg, 'M 118 119 Q 190 144 239 196', palette.green);
       drawPath(svg, 'M 239 243 Q 186 285 118 334', palette.green);
-      drawLabel(svg, 183, 284, 'SIGNED', { color: palette.green, size: 10 });
+      drawLabel(svg, 183, 284, 'CHOSEN', { color: palette.green, size: 10 });
     } else if (state === 'breach') {
       drawPath(svg, 'M 118 119 Q 190 144 239 196', palette.red, true);
       drawPath(svg, 'M 239 243 Q 186 285 118 334', palette.green);
@@ -167,13 +164,13 @@
     }
     nodes.forEach(([x, y, key, name, color]) =>
       drawNode(svg, x, y, key, name, color,
-        `Community ${key}, ${name}. Membership and hosting never automatically grant access to private vaults.`, entry));
+        `Community ${key}, ${name}. People choose what to contribute and share.`, entry));
     drawLabel(svg, 178, 574, 'NO TRANSITIVE PRIVATE ACCESS', { color: palette.muted, size: 10 });
     setGraphic(entry, svg);
     shortNote(entry,
       state === 'approved' ? 'A–B and B–C are authorized. A–C has no implied relationship.' :
-      state === 'introduced' ? 'A proposal is not a signed authorization.' :
-      state === 'breach' ? 'The compromised A–B connection is suspended; B–C remains separate.' :
+      state === 'introduced' ? 'An invitation is not permission to read.' :
+      state === 'breach' ? 'A–B sharing is paused; B–C remains separate.' :
       'No community receives another community’s permissions by default.');
   }
 

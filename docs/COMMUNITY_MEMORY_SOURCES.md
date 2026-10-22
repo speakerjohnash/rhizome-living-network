@@ -127,3 +127,51 @@ The removed relay, cryptography, authorization, resilience, diagnostic and
 hardware proposals are not used as evidence for the current narrative. They
 remain preserved separately in code for possible future restoration. The
 public presentation intentionally contains no link to that older edition.
+
+## Retained presentation and proto-Irises
+
+The original opening and early community cards are retained at John's direction.
+Their network scenarios remain illustrative architectural proposals, not verified
+deployed guarantees. They are separate from the source-grounded additions.
+Local and API models are described as proto-Irises, following John's explicit
+framing: their present participatory role does not establish that stock models
+are already community-specific fine-tunes or the full contextual Trust model.
+
+## Latest visual revision and primary reading
+
+Read the complete live Trust Demystified article at
+https://speakerjohnash.substack.com/p/trust-demystified (HTTP 200, 2026-10-21),
+including contextual source attention, local forking, all case studies and the
+five technical explanations. The public article differs from the local export.
+The relationship illustration draws on its context-specific usefulness and
+mutual-aid framing, alongside `source_embeddings.md`. Its geometry and profile
+examples are deliberately authored demonstrations, not trained embeddings.
+
+The new tool-library scenarios illustrate source-preserving peer sharing,
+changing temporal frames, and confluence as a revisable synthesis. No arbitrary
+percentage distribution is used as evidence for consensus. FLC wording follows
+the user's latest explicit clarification: tensor-form compression of knowledge
+deemed useful across peoples, local Irises encoding local knowledge, and Iris
+stakes representing communities with provenance traceable to their members.
+
+The communal OODA-loop framing is explicitly discussed in `Iris and Ŧrust White
+Paper.txt`, in the generative tension of community reward signals. Mediation is
+also explicit in `a_lesson_in_cognicism.txt` and the Purple Pill Manifesto.
+
+## FourThought schema correction
+
+The operative `fourthought-dialectic` skill and `fourthought_write` tool schema
+require one standalone thought per stake. Local schema verity is 0..1, with 0.5
+uncertainty; valence is -1..1. The page now uses those ranges. The orchard is the
+single continuing example. Outcome observations, causal claims and follow-up
+questions are distinct. Explanatory summaries are not displayed as individual
+stakes. This supersedes the earlier Riverside examples and negative-verity UI.
+
+## Published reading links
+
+Publication metadata comes from the sibling corpus's `literature_index.json`.
+The reading cards now link directly to the listed Medium sources for the
+manifesto, belief staking, and Time Compass, and to the published site articles
+for Rhizome, Teaching Iris, participatory design, Social Proof of Impact, and
+Beyond the Ledger. Source Embeddings and the Iris and Ŧrust White Paper also
+have direct links in the Ŧrust card.

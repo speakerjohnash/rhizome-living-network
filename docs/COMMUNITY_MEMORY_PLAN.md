@@ -19,8 +19,11 @@ Branch: `presentation/community-memory`. Main is unchanged.
 
 1. Preserve original edition and existing uncommitted changes. Complete:
    `archive/security-study/` is a self-contained copy of the starting edition.
-2. Replace the narrative and interactions with source-grounded local examples.
-3. Remove translucent header rendering and use deterministic chapter tracking.
+2. Preserve the original opening, principles, federation, perspective,
+   classification, relationships and outro. Add source-grounded local examples
+   alongside them; retire only the speculative later feature sections.
+3. Remove translucent header rendering. Preserve original opening typography,
+   layout, canvas and card styles.
 4. Check desktop/mobile rendering, keyboard controls, history preservation,
    separate verity/valence, browser errors, and package hashes.
 5. Open the revised branch locally and report actual verification limits.
@@ -42,7 +45,7 @@ proposal status. Do not load archived scripts into the current entry point.
 
 ## Completion
 
-The new edition and source notes are implemented. Desktop/mobile interaction
-checks passed. The header is opaque, the Purple Pill Manifesto is linked, and
+The original presentation has been restored as the baseline. The local learning
+material is additive. Desktop/mobile checks are recorded in COMMUNITY_MEMORY_QA.md. The header is opaque, the Purple Pill Manifesto is linked, and
 Ŧrust plus alternative scoring/learning functions are described. No archive
 link appears on the page. Nothing has been pushed or merged.

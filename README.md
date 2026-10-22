@@ -12,7 +12,8 @@ python3 -m http.server 8000
 
 ## Explore
 
-- Foundational cards: autonomy, participation, disagreement, evolving memory.
+- Original opening, four principle cards, federation, historical perspective,
+  classification, relationship exploration, and closing retained.
 - FourThought: four forms and independent verity/valence controls.
 - Community memory: follow a fictional orchard inquiry through prediction,
   disagreement and later reflection, without replacing earlier contributions.
@@ -27,12 +28,14 @@ train models. There are no external scripts, analytics, fonts or model calls.
 ## Development
 
 Active files: `index.html`, `assets/css/rhizome.css`,
-`assets/css/community-memory.css`, and `assets/js/community-memory.js`.
+`assets/css/community-memory.css`, `assets/js/literature-presentation.js`,
+`assets/js/community-memory.js`, plus the existing mobile and D3 assets.
 
-The header is opaque with no backdrop filter, as requested. Chapter navigation
-uses the full ordered section list rather than an IntersectionObserver delta.
+The header is opaque with no backdrop filter, as requested. The original opening styles and animated canvas are restored.
 
-- `docs/COMMUNITY_MEMORY_PLAN.md`: agreed scope and restoration instructions.
+- `docs/USER_FEEDBACK_LEDGER.md`: current user requests, protected sections,
+  reading log, implementation status, and placement correction.
+- `docs/COMMUNITY_MEMORY_PLAN.md`: original scope and restoration instructions.
 - `docs/COMMUNITY_MEMORY_SOURCES.md`: literature mapping and evidence boundaries.
 - `docs/COMMUNITY_MEMORY_QA.md`: browser and integrity checks for this edition.
 
@@ -44,8 +47,10 @@ checksum changes were preserved there too. It is not linked or loaded by the
 new page. Individual sections can be restored with their associated renderers
 and styles; see the plan for the procedure.
 
-The older root scripts and proposal documentation also remain in the repository
-but are not loaded by the new entry point. Their historical assertions do not
+The original full renderer and proposal documentation also remain in the repository.
+The active renderer retains the original hero and the revised community visualizations;
+the retired transport, encryption, private-computation, resilience, diagnostics,
+and hardware sections remain available in the code archive. Their historical assertions do not
 verify the current learning examples.
 
 ## Verification

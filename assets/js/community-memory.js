@@ -9,16 +9,16 @@
     });
   };
   const forms = {
-    question: { text: 'What would help us harvest more fruit before it spoils?', context: 'A question gives a direction to inquiry. Its value can emerge from what investigating it makes possible.', reference: 'Opens an inquiry' },
-    statement: { text: 'Ten people have volunteered for the next harvest.', context: 'A present claim can be checked, questioned, and connected to what the community does next.', reference: 'Responds to the harvest inquiry', verity: .9, valence: .8 },
-    prediction: { text: 'Weekly harvests will reduce the amount of fruit we lose this month.', context: 'The expectation is recorded before its outcome. Wanting it to happen is different from believing it will.', reference: 'Responds to the harvest inquiry', verity: .6, valence: .8 },
-    reflection: { text: 'We lost fruit last month because we did not have enough people to harvest it.', context: 'A reflection makes a claim about the past. Others can question its explanation or bring further evidence.', reference: 'Looks back on the previous harvest', verity: .6, valence: -.7 }
+    question: { text: 'What would help our community orchard harvest more fruit before it spoils?', context: 'A question gives a direction to inquiry. Its value can emerge from what investigating it makes possible.', reference: 'Opens an inquiry' },
+    statement: { text: 'Ten people are volunteering for the community orchard’s next harvest.', context: 'A present claim can be checked, questioned, and connected to what the community does next.', reference: 'Responds to the harvest inquiry', verity: .9, valence: .8 },
+    prediction: { text: 'Weekly harvests will reduce fruit loss at our community orchard in September.', context: 'The expectation is recorded before its outcome. Wanting it to happen is different from believing it will.', reference: 'Responds to the harvest inquiry', verity: .6, valence: .8 },
+    reflection: { text: 'A shortage of harvest volunteers caused fruit to spoil at the community orchard in August.', context: 'A reflection makes a claim about the past. Others can question its explanation or bring further evidence.', reference: 'Looks back on the previous harvest', verity: .6, valence: -.7 }
   };
   const signed = value => `${value > 0 ? '+' : ''}${value.toFixed(2)}`;
   function renderAxes() {
     const verity = Number(byId('verity').value), valence = Number(byId('valence').value);
-    set('verityValue', signed(verity)); set('valenceValue', signed(valence));
-    const belief = verity > .1 ? 'You lean toward believing the claim.' : verity < -.1 ? 'You lean toward believing the claim is false.' : 'You are uncertain about the claim.';
+    set('verityValue', verity.toFixed(2)); set('valenceValue', signed(valence));
+    const belief = verity > .55 ? 'You lean toward believing the claim.' : verity < .45 ? 'You lean toward believing the claim is false.' : 'You are uncertain about the claim.';
     const value = valence > .1 ? 'You view its meaning or outcome positively.' : valence < -.1 ? 'You view its meaning or outcome negatively.' : 'You feel neutral about its meaning or outcome.';
     set('axisInsight', `${belief} ${value} These judgments remain separate.`);
   }
@@ -38,7 +38,7 @@
     ['AT THE BEGINNING', 'Make room for a question.', 'The community has named an uncertainty worth investigating. No future result is available yet.'],
     ['BEFORE THE OUTCOME', 'Record an expectation.', 'Mara expects weekly harvests to help. Her confidence and the value she places on the outcome are recorded separately.'],
     ['TWO VOICES IN VIEW', 'Agreement on a goal can include doubt.', 'Eli wants less fruit to go to waste, but doubts this prediction. The record holds both assessments rather than replacing them with a single community opinion.'],
-    ['LOOKING BACK', 'Keep the lesson open.', 'Mara reports less waste and another change: more volunteers. Her reflection adds context without rewriting the prediction or pretending the cause is settled. The community has another question to pursue.']
+    ['LOOKING BACK', 'Keep the lesson open.', 'Mara records lower fruit loss as one reflection. The cause remains open: separate observations and questions can examine harvest timing and volunteer availability without bundling them into that stake.']
   ];
   document.querySelectorAll('[data-moment]').forEach(button => button.addEventListener('click', () => {
     const moment = Number(button.dataset.moment); select('data-moment', moment);
@@ -60,33 +60,19 @@
     set('signalName', name); set('signalQuestion', question); set('signalDescription', description);
   }));
 
-  // Select from the complete ordered chapter list, not only observer change events.
-  // Updating only on a chapter change prevents boundary-driven highlight churn.
-  const chapters = [...document.querySelectorAll('main > section[id]')];
-  const links = [...document.querySelectorAll('.nav-items a')];
-  const nav = document.querySelector('.topbar');
-  let scheduled = false, current = null;
-  function updateNavigation() {
-    scheduled = false;
-    const threshold = nav.getBoundingClientRect().height + 36;
-    let chapter = chapters[0].id;
-    for (const section of chapters) {
-      if (section.getBoundingClientRect().top <= threshold) chapter = section.id;
-      else break;
-    }
-    // Keep unlisted supporting sections within their adjacent navigation chapter.
-    const aliases = { opening: null, privacy: 'learning', reading: 'communities', outro: 'communities' };
-    const target = Object.prototype.hasOwnProperty.call(aliases, chapter) ? aliases[chapter] : chapter;
-    if (target === current) return;
-    current = target;
-    links.forEach(link => {
-      const active = link.hash === `#${target}`;
-      link.classList.toggle('active', active);
-      if (active) link.setAttribute('aria-current', 'location'); else link.removeAttribute('aria-current');
-    });
-  }
-  function scheduleNavigation() { if (!scheduled) { scheduled = true; requestAnimationFrame(updateNavigation); } }
-  window.addEventListener('scroll', scheduleNavigation, { passive: true });
-  window.addEventListener('resize', scheduleNavigation);
-  updateNavigation();
+})();
+
+(() => {
+  const map = document.querySelector('.synthesis-map');
+  if (!map) return;
+  const explanations = [
+    'The orchard knows what grows and what damages crops. The retailer sees what people buy and what goes to waste. The lab studies pest control and ecological effects. Each holds a different part of the problem.',
+    'Together, they can identify a growing method worth testing against real demand: a possibility that neither sales data, field experience, nor research establishes alone. Rhizome connects the chosen knowledge while each community keeps its own Iris.',
+    'The trial feeds harvest, sales, and ecological observations back into all three communities. Did pesticide use fall? Did people buy the fruit? Was the crop viable? Those findings reshape the next shared question, rather than guaranteeing that everyone benefits.'
+  ];
+  map.querySelectorAll('[data-synthesis]').forEach(button => button.addEventListener('click', () => {
+    map.dataset.synthesisStep = button.dataset.synthesis;
+    map.querySelectorAll('[data-synthesis]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+    map.querySelector('.synthesis-explanation').textContent = explanations[Number(button.dataset.synthesis)];
+  }));
 })();
